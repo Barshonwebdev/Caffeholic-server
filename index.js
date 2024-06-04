@@ -31,6 +31,20 @@ const client = new MongoClient(uri, {
       // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
+
+      const caffeholicDB=client.db('caffeholic_db');
+      const coffeepostsCollection=caffeholicDB.collection('coffeepost_collection');
+      const userCollection=caffeholicDB.collection('caffeholic_users');
+
+      // coffeeposts api 
+
+      
+
+      app.get('/coffeeposts',async(req,res)=>{
+        const result=await coffeepostsCollection.find().toArray();
+        res.send(result);
+      })
+
     } finally {
       // Ensures that the client will close when you finish/error
       
