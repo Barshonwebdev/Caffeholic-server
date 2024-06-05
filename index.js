@@ -58,7 +58,6 @@ const client = new MongoClient(uri, {
       const coffeepostsCollection=caffeholicDB.collection('coffeepost_collection');
       const userCollection=caffeholicDB.collection('caffeholic_users');
 
-      // users api 
       // user APIs
 
     app.post("/user", async (req, res) => {
@@ -75,9 +74,16 @@ const client = new MongoClient(uri, {
       const result = await userCollection.insertOne(user);
       res.send({token});
     });
+
+
       // coffeeposts api 
 
-      
+      // add product
+    app.post("/coffeeposts", verifyToken, async (req, res) => {
+      const postData = req.body;
+      const result = await coffeepostsCollection.insertOne(postData);
+      res.send(result);
+    });
 
       app.get('/coffeeposts',async(req,res)=>{
         const result=await coffeepostsCollection.find().toArray();
