@@ -109,7 +109,8 @@ async function run() {
       const options={
         projection:{email:email}
       }
-      const result=await coffeepostsCollection.find(options).estimatedDocumentCount();
+      const posts=await coffeepostsCollection.find(options);
+      const result=[posts];
       res.send(result);
     })
   } finally {
