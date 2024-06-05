@@ -93,6 +93,26 @@ async function run() {
       const result = await coffeepostsCollection.find().toArray();
       res.send(result);
     });
+    app.get("/coffeeposts/:id", async (req, res) => {
+      const id=req.params.id;
+      const result = await coffeepostsCollection.findOne({_id:new ObjectId(id)});
+      res.send(result);
+    });
+    app.patch("/coffeeposts/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedPost = req.body;
+
+      const filter = {
+        _id: new ObjectId(id),
+      };
+
+      const updateDoc = {
+        $set: updatedPost,
+      };
+
+      const result = await coffeepostsCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
 
     app.get('/postsown',async (req,res)=>{
       const email=req.query.email;
