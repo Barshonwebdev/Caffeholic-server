@@ -109,7 +109,7 @@ async function run() {
       const options={
         projection:{email:email}
       }
-      const result=await coffeepostsCollection.find(options).toArray();
+      const result=await coffeepostsCollection.find(query,options).toArray();
       res.send(result);
     })
   } finally {
