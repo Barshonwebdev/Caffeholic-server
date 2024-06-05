@@ -104,6 +104,14 @@ async function run() {
       }
       res.send(result);
     })
+    app.get('/stats/:email',async (req,res)=>{
+      const email=req.params.email;
+      const options={
+        projection:{email:email}
+      }
+      const result=await coffeepostsCollection.find(options).estimatedDocumentCount();
+      res.send(result);
+    })
   } finally {
     // Ensures that the client will close when you finish/error
   }
