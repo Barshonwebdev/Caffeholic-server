@@ -104,12 +104,12 @@ async function run() {
       }
       res.send(result);
     })
-    app.get('/stats/:email',async (req,res)=>{
-      const email=req.params.email;
-      const options={
-        projection:{email:email}
-      }
-      const result=await coffeepostsCollection.find(query,options).toArray();
+    app.get('/statsown',async (req,res)=>{
+      const email=req.query.email;
+      const query={
+        poster_email:email
+      };
+      const result=await coffeepostsCollection.find(query).toArray();
       res.send(result);
     })
   } finally {
