@@ -93,6 +93,17 @@ async function run() {
       const result = await coffeepostsCollection.find().toArray();
       res.send(result);
     });
+
+    //stat api
+    app.get('/stats',async (req,res)=>{
+      const totalPosts= await coffeepostsCollection.estimatedDocumentCount();
+      const totalUsers=await userCollection.estimatedDocumentCount();
+      const result={
+        users:totalUsers,
+        posts:totalPosts
+      }
+      res.send(result);
+    })
   } finally {
     // Ensures that the client will close when you finish/error
   }
