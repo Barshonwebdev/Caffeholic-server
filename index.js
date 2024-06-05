@@ -94,6 +94,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get('/postsown',async (req,res)=>{
+      const email=req.query.email;
+      const query={
+        poster_email:email
+      };
+      const result=await coffeepostsCollection.find(query).toArray();
+      res.send(result);
+    })
+
     //stat api
     app.get('/stats',async (req,res)=>{
       const totalPosts= await coffeepostsCollection.estimatedDocumentCount();
