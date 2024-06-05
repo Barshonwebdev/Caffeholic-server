@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 // middlewares
 app.use(cors());
@@ -100,6 +100,12 @@ async function run() {
         poster_email:email
       };
       const result=await coffeepostsCollection.find(query).toArray();
+      res.send(result);
+    })
+
+    app.delete('/postsown/:id',verifyToken,async(req,res)=>{
+      const id=req.params.id;
+      const result=await coffeepostsCollection.deleteOne({_id:new ObjectId(id)});
       res.send(result);
     })
 
