@@ -81,6 +81,19 @@ async function run() {
       res.send(result);
     });
 
+    app.patch('/user/:email',verifyToken,async(req,res)=>{
+      const email=req.params.email;
+      const updateData=req.body;
+      const query={
+        email:email
+      };
+      const updateDoc = {
+        $set: updateData,
+      };
+      const result=await userCollection.updateOne(query,updateDoc);
+      res.send(result);
+    })
+
     // coffeeposts api
 
     app.post("/coffeeposts", verifyToken, async (req, res) => {
