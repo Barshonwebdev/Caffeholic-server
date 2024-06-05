@@ -87,7 +87,7 @@ const client = new MongoClient(uri, {
 
       app.get('/coffeeposts',async(req,res)=>{
         const result=await coffeepostsCollection.find().toArray();
-        res.send(result);
+        res.send(result); 
       })
 
       
